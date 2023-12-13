@@ -7,9 +7,11 @@ services:
       - 'POSTGRES_USER=admin'
     ports:
       - '5432:5432'
+    networks:
+      - my-fitness-network
 
   rabbitmq:
-    image: 'rabbitmq:3-alpine'
+    image: 'rabbitmq:3-management-alpine'
     container_name: 'rabbitmq'
     ports:
       - '5672:5672'
@@ -18,15 +20,17 @@ services:
       - '~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/'
       - '~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq'
     networks:
-      - rabbitmq-network
+      - my-fitness-network
 
   fake-email:
     image: 'marcopas/docker-mailslurper:latest'
     ports:
       - '9090:8080'
-      - '8585:8585'
+      - '8085:8085'
       - '25:2500'
+    networks:
+      - my-fitness-network
 
 networks:
-  rabbitmq-network:
+  my-fitness-network:
     driver: bridge

@@ -8,7 +8,15 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '17'
+    sourceCompatibility = '21'
+}
+
+compileTestJava {
+    options.compilerArgs.add("--enable-preview")
+}
+
+compileJava {
+    options.compilerArgs.add("--enable-preview")
 }
 
 configurations {
@@ -32,6 +40,7 @@ ext {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'

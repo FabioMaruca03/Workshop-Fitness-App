@@ -21,11 +21,20 @@ spring:
       ddl-auto: create
 
   rabbitmq: # In production, this should be configured to use a real RabbitMQ server
+    addresses: 'localhost:5672'
+
+  mail:
     host: 'localhost'
-    port: 5672
+    port: 25
+    test-connection: true
 
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+
+mailing:
+  admin: 'admin'
+  helpdesk: 'helpdesk'
+  domain: "${mail-domain:fitness.com}"
