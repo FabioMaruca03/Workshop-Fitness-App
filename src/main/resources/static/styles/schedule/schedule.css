@@ -1,0 +1,46 @@
+.schedule {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.schedule-title {
+    font-size: 24px;
+    color: #333;
+}
+
+.schedule-description {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.schedule-day {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.schedule h2 {
+    font-size: 20px;
+    color: #333;
+    margin-top: 20px;
+}
+
+.schedule-exercise {
+    margin-top: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.schedule-exercise .exercise-name {
+    font-size: 18px;
+    color: #333;
+}
+
+.schedule-exercise .exercise-description {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+}

@@ -1,0 +1,31 @@
+logging:
+  level:
+    com.example.fitness.commons.audit: TRACE
+
+  file:
+    path: 'logs/'
+    name: 'auditing.log'
+
+  logback:
+    rollingpolicy:
+      max-history: 7
+      max-file-size: '10MB'
+
+spring:
+  application:
+    name: 'My Fitness Scheduler'
+
+  jpa: # In production, this should be configured to use a real database
+    open-in-view: true
+    hibernate:
+      ddl-auto: create
+
+  rabbitmq: # In production, this should be configured to use a real RabbitMQ server
+    host: 'localhost'
+    port: 5672
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

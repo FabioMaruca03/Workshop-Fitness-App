@@ -1,0 +1,21 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{menu::menu}"></div>
+
+<!--/*@thymesVar id="exercise" type="com.example.fitness.schedule.Exercise"*/-->
+<form th:action="@{/schedule/create}" method="post" th:fragment="exercise-creation" th:object="${exercise}">
+  <input type="hidden" id="id" name="id" th:value="${exercise.id}">
+  <label for="bodyPart">Body Part:</label>
+  <input type="text" id="bodyPart" name="bodyPart" th:value="${exercise.bodyPart}" /><br/>
+
+  <label for="description">Description:</label>
+  <input type="text" id="description" name="description" th:value="${exercise.description}" /><br/>
+
+  <label for="minutes">Duration (seconds):</label>
+  <input type="number" id="minutes" name="minutes" th:value="${exercise.minutes}" /><br/>
+
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" th:value="${exercise.name}" /><br/>
+
+  <input type="submit" value="Confirm changes"/>
+</form>

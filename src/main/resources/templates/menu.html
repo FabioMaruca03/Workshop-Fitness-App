@@ -1,0 +1,18 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<!--/*@thymesVar id="appName" type="java.lang.String"*/-->
+<div th:fragment="menu" id="menu">
+    <link rel="stylesheet" th:href="@{/styles/menu.css}">
+    <link rel="stylesheet" th:href="@{/styles/commons.css}">
+    <a th:text="${appName}" id="menu-app-name" th:href="@{/home}"></a>
+    <div id="menu-links-wrapper">
+        <ul th:fragment="menu-ribbon" id="menu-links">
+            <li class="menu-link"><a th:href="@{/schedules}">My Schedules</a></li>
+            <li class="menu-link"><a th:href="@{/contacts}">My Diet</a></li>
+
+            <!--/*@thymesVar id="isDevelopment" type="java.lang.Boolean"*/-->
+            <li class="menu-link" sec:authorize="hasAnyRole('ADMIN', 'DEVELOPER')" th:if="${isDevelopment}"><a th:href="@{/tester}">Tester</a></li>
+        </ul>
+        <div th:replace="~{account/profile :: user-profile}"></div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: right;
+}
+
+.account-ribbon {
+    background-color: #555;
+    color: #fff;
+    padding: 5px 15px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.user-profile-popup {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-right: 5%;
+}
+
+.user-profile-popup h2 {
+    margin-top: 0;
+    color: black;
+}
+
+.user-profile-fields {
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+
+.user-profile-fields input {
+    margin: 10px auto;
+}
+
+#user-profile-close-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}

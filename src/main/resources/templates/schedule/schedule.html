@@ -1,0 +1,16 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{menu::menu}"></div>
+
+<!--/*@thymesVar id="schedule" type="com.example.fitness.schedule.Schedule"*/-->
+<div class="schedule" th:fragment="schedule-view">
+    <link rel="stylesheet" th:href="@{/styles/schedule/schedule.css}">
+
+    <h2 class="schedule-title">Schedule details</h2>
+    <p class="schedule-description" th:text="${schedule.description}"></p>
+    <p class="schedule-day" th:text="${schedule.dayOfWeek}"></p>
+
+    <h2>Exercises: </h2>
+    <div th:each="exercise : ${schedule.exercises}" th:insert="~{schedule/exercise :: exercise-view}"></div>
+</div>
+</html>

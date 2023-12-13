@@ -1,0 +1,23 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{menu :: menu}"></div>
+
+<div th:fragment="loginForm" id="login-form">
+    <link rel="stylesheet" th:href="@{/styles/login.css}">
+    <form th:action="@{/login}" method="post">
+        <!--/*@thymesVar id="loginError" type="java.lang.String"*/-->
+        <p th:if="${loginError}" class="error">Wrong user or password</p>
+
+        <form th:action="@{/login.html}" method="post">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="username" autofocus="autofocus"/> <br/>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password"/> <br/>
+
+            <label for="remember-me">Remember me</label>
+            <input type="checkbox" name="remember-me" id="remember-me" value="true"/>
+            <input type="submit" value="Log in"/>
+        </form>
+    </form>
+</div>

@@ -1,0 +1,11 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{menu::menu}"></div>
+
+<div class="exercise" th:fragment="exercise-view">
+    <!--/*@thymesVar id="exercise" type="com.example.fitness.schedule.Exercise"*/-->
+    <h3 th:text="${exercise.name}"></h3>
+    <p th:text="${exercise.bodyPart}"></p>
+    <p th:text="${exercise.description}"></p>
+    <p th:text="${exercise.minutes}"></p>
+</div>

@@ -1,0 +1,57 @@
+#menu {
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 10px 40px;
+    text-align: center;
+    height: 60px;
+}
+
+#menu-app-name {
+    text-decoration: none;
+    color: burlywood;
+    font-size: 24px;
+}
+
+#menu-links {
+    list-style-type: none;
+}
+
+#menu-links-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 30px;
+    width: 80%;
+}
+
+.menu-link {
+    display: inline;
+    margin-right: 20px;
+}
+
+.menu-link a {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+}
+
+.menu-link a:hover {
+    color: #ccc;
+    font-weight: bold;
+}
+
+#menu-account:hover {
+    color: #ccc;
+}
+
+#menu-account-name {
+    font-weight: bold;
+    text-align: center;
+}
+
+#menu-login {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+}

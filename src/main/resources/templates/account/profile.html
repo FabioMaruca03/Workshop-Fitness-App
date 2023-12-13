@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Popup</title>
+</head>
+<body>
+<div class="user-profile-header" th:fragment="user-profile">
+    <link rel="stylesheet" th:href="@{/styles/profile.css}">
+    <div class="user-profile-ribbon" id="user-profile-account-ribbon">
+        <div sec:authorize="isAuthenticated()">
+            <p th:text="${#authentication.principal.username}" id="menu-account"></p>
+        </div>
+        <div sec:authorize="isAnonymous()">
+            <a th:href="@{/login}" id="menu-login">LOG IN</a>
+        </div>
+    </div>
+    <div sec:authorize="isAuthenticated()" class="user-profile-popup" id="user-profile-popup">
+        <h2>User Profile</h2>
+
+        <!--/*@thymesVar id="profile" type="com.example.fitness.person.Person "*/-->
+        <form th:object="${profile}">
+            <label for="email">Email:</label>
+            <div class="user-profile-fields">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" autofocus="autofocus" th:value="${profile.email}"/>
+
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" th:value="${profile.name}"/>
+
+                <label for="surname">Surname:</label>
+                <input type="text" id="surname" name="surname" th:value="${profile.surname}"/>
+            </div>
+            <div>
+
+            </div>
+        </form>
+
+        <button class="user-profile-close-button" id="user-profile-close-button">Close</button>
+    </div>
+    <script th:src="@{/js/profile.js}"></script>
+</div>
+
+</body>
+</html>
