@@ -8,15 +8,7 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '21'
-}
-
-compileTestJava {
-    options.compilerArgs.add("--enable-preview")
-}
-
-compileJava {
-    options.compilerArgs.add("--enable-preview")
+    sourceCompatibility = '17'
 }
 
 configurations {
@@ -35,10 +27,11 @@ repositories {
 ext {
     set('springModulithVersion', "1.1.0")
     set('openaiSpringBootStarterVersion', "0.7.1-SNAPSHOT")
-    set('thymeleafVersion', "3.1.1.RELEASE")
+    set('jmoleculesVersion', "2023.1.0")
 }
 
 dependencies {
+    // Spring Boot Starters
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
@@ -47,28 +40,40 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'org.springframework.modulith:spring-modulith-starter-core'
-    implementation 'org.springframework.modulith:spring-modulith-starter-jpa'
+
+    // AI integration
     implementation "org.springframework.experimental.ai:spring-ai-openai-spring-boot-starter:${openaiSpringBootStarterVersion}"
 
-    implementation "org.thymeleaf.extras:thymeleaf-extras-springsecurity6:${thymeleafVersion}"
+    // Architecture
+    implementation 'org.springframework.modulith:spring-modulith-starter-core'
+    implementation 'org.springframework.modulith:spring-modulith-starter-jpa'
+    implementation 'org.springframework.modulith:spring-modulith-moments'
 
+    implementation "org.thymeleaf.extras:thymeleaf-extras-springsecurity6"
+
+    // Utility
     compileOnly 'org.projectlombok:lombok'
 
+    // Development
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 
+    // Databases
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'
 
+    // Annotation processors
+    testAnnotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
 
+    // Testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.boot:spring-boot-testcontainers'
     testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
     testImplementation 'org.testcontainers:junit-jupiter'
     testImplementation 'org.testcontainers:postgresql'
+    testImplementation 'org.projectlombok:lombok'
 }
 
 dependencyManagement {

@@ -1,6 +1,6 @@
 package com.example.fitness.commons.audit;
 
-import com.example.fitness.commons.events.mailing.AdminEmailCreationEvent;
+import com.example.fitness.commons.events.mailing.EmailEvent;
 import com.example.fitness.person.Person;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class AuditingAspect {
             log.debug("Saving person: {}", personJson);
             if (Set.of(ADMIN, DEVELOPER).contains(person.getRole())) {
                 log.info("High privileged user created: {} - {}", person.getEmail(), person.getRole());
-                eventPublisher.publishEvent(new AdminEmailCreationEvent(this, highPrivilegedUserCreatedEmail(person)));
+                eventPublisher.publishEvent(new EmailEvent(this, highPrivilegedUserCreatedEmail(person)));
             }
         }
     }
@@ -45,12 +45,13 @@ public class AuditingAspect {
         final var message = new SimpleMailMessage();
 
         message.setSubject("New high privileged user created");
-        message.setText(STR."""
-                The user\\s\{person.getName()} \{person.getSurname()} with email \{person.getEmail()} has been created.
-                It appears to have\\s\{person.getRole()} role.
-                """
+        message.setText("""
+                The user %s %s with email %s has been created.
+                It appears to have %s role.
+                """.formatted(person.getName(), person.getSurname(), person.getEmail(), person.getRole())
         );
-        message.setTo("#system");
+        message.setFrom("#system");
+        message.setTo("#admin");
 
         return message;
     }

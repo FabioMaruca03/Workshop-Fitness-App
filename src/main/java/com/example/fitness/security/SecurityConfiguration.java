@@ -2,10 +2,10 @@ package com.example.fitness.security;
 
 import com.example.fitness.person.Person;
 import com.example.fitness.person.PersonService;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -27,7 +27,7 @@ import static com.example.fitness.person.ApplicationRole.DEVELOPER;
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
-public class SecurityConfiguration {
+public class SecurityConfiguration implements CommandLineRunner {
     private final PersonService personService;
     private final PasswordEncoder passwordEncoder;
 
@@ -75,8 +75,8 @@ public class SecurityConfiguration {
         return httpSecurity.build();
     }
 
-    @PostConstruct
-    void init() {
+    @Override
+    public void run(String... args) {
         try {
             personService.loadUserByUsername("admin@fitness.com");
         } catch (UsernameNotFoundException e) {
@@ -93,5 +93,4 @@ public class SecurityConfiguration {
             log.debug("Created admin user: {}", admin);
         }
     }
-
 }

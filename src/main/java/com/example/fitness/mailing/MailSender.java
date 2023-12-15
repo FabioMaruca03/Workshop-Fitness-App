@@ -4,6 +4,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MailSender extends JavaMailSenderImpl {
+class MailSender extends JavaMailSenderImpl {
 
 }

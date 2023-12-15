@@ -2,6 +2,7 @@ package com.example.fitness.commons.ui;
 
 import com.example.fitness.person.Person;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,6 +37,7 @@ public class BaseUIController {
 
     @Bean
     @SessionScope
+    @ConditionalOnWebApplication
     Person currentUser(@AuthenticationPrincipal Person person) {
         return person;
     }

@@ -1,5 +1,5 @@
 @NonNullApi
-@ApplicationModule
+@ApplicationModule(allowedDependencies = "commons::mailing")
 package com.example.fitness.mailing;
 
 import org.springframework.lang.NonNullApi;

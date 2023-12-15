@@ -1,5 +1,6 @@
 package com.example.fitness;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.autoconfigure.openai.OpenAiAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,6 +11,7 @@ import java.util.Map;
 
 @Slf4j
 @SpringBootApplication
+@RequiredArgsConstructor
 @Modulithic(sharedModules = "commons")
 public class FitnessApplication {
 
@@ -26,5 +28,4 @@ public class FitnessApplication {
                     .run(args);
         }
     }
-
 }

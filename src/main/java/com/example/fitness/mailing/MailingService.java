@@ -1,23 +1,26 @@
 package com.example.fitness.mailing;
 
-import com.example.fitness.commons.events.mailing.AdminEmailCreationEvent;
-import com.example.fitness.commons.events.mailing.EmailCreationEvent;
 import com.example.fitness.commons.events.mailing.EmailEvent;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.event.EventListener;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.event.TransactionalEventListener;
 
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import static com.example.fitness.commons.events.mailing.EmailEvent.EmailState.SENT;
+
 @Slf4j
 @Service
+@EnableAsync
 @RequiredArgsConstructor
 @EnableConfigurationProperties(MailingProperties.class)
 public class MailingService {
@@ -29,21 +32,24 @@ public class MailingService {
     @PostConstruct
     void init() {
         patterns = Map.of(
-                "#system", STR."system@\{properties.getDomain()}",
-                "#admin", STR."\{properties.getAdmin()}@\{properties.getDomain()}",
-                "#helpdesk", STR."\{properties.getHelpdesk()}@\{properties.getDomain()}"
+                "#system", "system@%s".formatted(properties.getDomain()),
+                "#admin", "%s@%s".formatted(properties.getAdmin(), properties.getDomain()),
+                "#helpdesk", "%s@%s".formatted(properties.getHelpdesk(), properties.getDomain())
         );
     }
 
-    @TransactionalEventListener(EmailEvent.class)
-    public void sendEmail(EmailEvent emailEvent) {
+    @Async
+    @EventListener
+    public void handleEmailEvents(EmailEvent emailEvent) {
         replacePattern(emailEvent.getMailMessage());
 
-        switch (emailEvent) {
-            case AdminEmailCreationEvent ignore -> sendEmail(emailEvent, STR."\{properties.getAdmin()}@\{properties.getDomain()}");
-            case EmailCreationEvent ignore -> sendEmail(emailEvent, STR."\{properties.getAdmin()}@\{properties.getDomain()}");
-            default -> throw new IllegalStateException(STR."Unexpected value: \{emailEvent}");
-        }
+        executor.execute(() -> {
+            log.debug("Sending email: {} to {}", emailEvent.getMailMessage().getFrom(), emailEvent.getMailMessage().getTo());
+            emailSender.send(emailEvent.getMailMessage());
+
+            log.debug("Email sent: {} to {}", emailEvent.getMailMessage().getFrom(), emailEvent.getMailMessage().getTo());
+            emailEvent.setState(SENT);
+        });
     }
 
     private void replacePattern(SimpleMailMessage email) {
@@ -60,16 +66,6 @@ public class MailingService {
             }
             email.setTo(to);
         }
-    }
-
-    void sendEmail(EmailEvent emailEvent, String sender) {
-        emailEvent.getMailMessage().setFrom(sender);
-        executor.execute(() -> {
-            log.info("Sending email: {}", emailEvent.getMailMessage());
-            emailSender.send(emailEvent.getMailMessage());
-
-            log.info("Email sent: {}", emailEvent.getMailMessage());
-        });
     }
 
 }

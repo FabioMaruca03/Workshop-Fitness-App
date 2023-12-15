@@ -1,5 +1,6 @@
 package com.example.fitness.person;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +23,7 @@ public class PersonService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-    public Person save(Person person) {
+    public Person save(@Valid Person person) {
         log.trace("Saving person: {}", person);
         return personRepository.save(person);
     }
