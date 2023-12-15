@@ -3,10 +3,8 @@ package com.example.fitness.mailing;
 import com.example.fitness.commons.events.mailing.EmailEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.MockBeans;
-import org.springframework.context.annotation.Bean;
 import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.modulith.test.Scenario;
 
@@ -31,11 +29,6 @@ class MailingServiceTest {
                     assertEquals("system@fitness.com", event.getMailMessage().getFrom());
                     assertArrayEquals(new String[] {"admin@fitness.com"}, event.getMailMessage().getTo());
                 });
-    }
-
-    @TestConfiguration
-    static class TestConfigs {
-
     }
 
 }
